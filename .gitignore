@@ -1,1 +1,8 @@
 /.vscode
+./dune_globes/eff
+./dune_globes/flux
+./dune_globes/smr
+./dune_globes/xsec
+./dune_globes/definitions.inc
+./dune_globes/DUNE_GLoBES.glb
+./dune_globes/syst_list.inc
