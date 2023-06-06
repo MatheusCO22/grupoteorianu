@@ -1,6 +1,0 @@
---2023-05-27 01:13:05--  https://arxiv.org/src/2103.04797v2/anc/dune_flux/flux_dune_antineutrino_FD_globes.txt
-Resolving arxiv.org (arxiv.org)... 128.84.21.199
-Connecting to arxiv.org (arxiv.org)|128.84.21.199|:443... connected.
-HTTP request sent, awaiting response... 403 Forbidden
-2023-05-27 01:13:06 ERROR 403: Forbidden.
-

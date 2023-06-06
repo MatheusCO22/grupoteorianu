@@ -102,7 +102,7 @@ int main(int argc, char * argv[])
 		prob_antitau_mat = glbProfileProbability(0,2,3,-1,energy);	//anti muon para anti tau
 
 		glbSetOscillationParameters(true_values);
-		flux=glbFlux(0,0,energy,L,2,+1);
+		flux=glbFlux(0,0,energy,L,2,-1);
 
 		outstd_antie_vac<<energy<<"  "<<(prob_antie_vac)<<endl;
 		outstd_antimu_vac<<energy<<"  "<<(prob_antimu_vac)<<endl;
