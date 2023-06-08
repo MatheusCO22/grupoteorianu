@@ -19,7 +19,6 @@ void make_plot_prob_all()
     c1->SetGrid();
     c1->SetLogx();
                             // x1   y1   x2   y2
-    //auto legend = new TLegend(0.7, 0.9, 0.9, 0.75);
     auto legend = new TLegend(0.7,0.9,0.9,0.8);
 
     auto grmu_mat = new TGraph("./dat_files/probability_DUNE_mu_mat.dat");
@@ -85,8 +84,4 @@ void make_plot_prob_all()
     legend->Draw();
 
     c1->Update();
-
-    // grmu->Draw();
-    // gre->Draw("SAME");
-    // grtau->Draw("SAME");
 }

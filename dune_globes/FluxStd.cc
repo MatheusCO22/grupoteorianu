@@ -1,20 +1,19 @@
 #include <iostream>
 #include <cmath>
 #include <string.h>
-#include<float.h>
-#include<complex.h>
+#include <float.h>
+#include <complex.h>
 #include <vector>
-#include<gsl/gsl_complex.h>
-#include<gsl/gsl_complex_math.h>
-#include<gsl/gsl_matrix.h>
-#include<gsl/gsl_blas.h>
+#include <gsl/gsl_complex.h>
+#include <gsl/gsl_complex_math.h>
+#include <gsl/gsl_matrix.h>
+#include <gsl/gsl_blas.h>
 #include <globes/globes.h>
-#include<fstream>
+#include <fstream>
 
 using namespace std;
 
 char AEDLFILE[] = "DUNE_GLoBES.glb";
-
 
 int main(int argc, char * argv[])
 {
@@ -38,9 +37,7 @@ int main(int argc, char * argv[])
 	glb_params true_values = glbAllocParams();
 
     glbDefineParams(true_values,theta12,theta13,theta23,deltacp,dm21,dm31);
-	
 	glbSetDensityParams(true_values, 1.0, GLB_ALL);
-
 	glbSetOscillationParameters(true_values);
 	glbSetRates();
 
@@ -87,5 +84,4 @@ int main(int argc, char * argv[])
 	glbFreeParams(true_values);
     
  	return 0;
-
 }

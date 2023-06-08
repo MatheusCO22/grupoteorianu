@@ -19,8 +19,7 @@ void make_plot_prob_anti_mat()
     c1->SetGrid();
     c1->SetLogx();
                             // x1   y1   x2   y2
-    //auto legend = new TLegend(0.7, 0.9, 0.9, 0.75);
-    auto legend = new TLegend(0.7,0.9,0.9,0.8);
+    auto legend = new TLegend(0.7, 0.9, 0.9, 0.8);
 
     auto gr_antimu = new TGraph("./dat_files/probability_DUNE_antimu_mat.dat");
     auto gr_antie = new TGraph("./dat_files/probability_DUNE_antie_mat.dat");
@@ -65,8 +64,4 @@ void make_plot_prob_anti_mat()
     legend->Draw();
 
     c1->Update();
-
-    // grmu->Draw();
-    // gre->Draw("SAME");
-    // grtau->Draw("SAME");
 }

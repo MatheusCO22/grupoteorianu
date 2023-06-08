@@ -19,8 +19,7 @@ void make_plot_prob_vac()
     c1->SetGrid();
     c1->SetLogx();
                             // x1   y1   x2   y2
-    //auto legend = new TLegend(0.7, 0.9, 0.9, 0.75);
-    auto legend = new TLegend(0.7,0.9,0.9,0.8);
+    auto legend = new TLegend(0.7, 0.9, 0.9, 0.8);
 
     auto grmu = new TGraph("./dat_files/probability_DUNE_mu_vac.dat");
     auto gre = new TGraph("./dat_files/probability_DUNE_e_vac.dat");
@@ -65,8 +64,4 @@ void make_plot_prob_vac()
     legend->Draw();
 
     c1->Update();
-
-    // grmu->Draw();
-    // gre->Draw("SAME");
-    // grtau->Draw("SAME");
 }

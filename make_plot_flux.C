@@ -13,14 +13,13 @@
 void make_plot_flux()
 {
     //FLUXOS
-    //Gerar canvas
     int width = 2;
     int lineStyle = 9;
+    //Gerar canvas
     auto c1 = new TCanvas("c1", "Fluxos", 800, 500);
     c1->SetGrid();
     c1->SetLogx();
                             // x1   y1   x2   y2
-    //auto legend = new TLegend(0.7, 0.9, 0.9, 0.75);
     auto legend = new TLegend(0.8, 0.9, 0.9, 0.8);
     auto max_values = new TLegend(0.1, 0.1, 0.3, 0.25);
 
@@ -90,8 +89,4 @@ void make_plot_flux()
     legend->Draw();
 
     c1->Update();
-
-    // grmu->Draw();
-    // gre->Draw("SAME");
-    // grtau->Draw("SAME");
 }

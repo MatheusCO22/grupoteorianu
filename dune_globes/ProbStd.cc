@@ -53,9 +53,7 @@ int main(int argc, char * argv[])
 	glb_params true_values = glbAllocParams();
 
     glbDefineParams(true_values,theta12,theta13,theta23,deltacp,dm21,dm31);
-	
 	glbSetDensityParams(true_values, 1.0, GLB_ALL);
-
 	glbSetOscillationParameters(true_values);
 	glbSetRates();
 
