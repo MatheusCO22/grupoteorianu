@@ -20,11 +20,16 @@ int main(int argc, char * argv[])
 	glbInit(argv[0]);
 	glbInitExperiment(AEDLFILE, &glb_experiment_list[0], &glb_num_of_exps);
 
-	ofstream outstdmu, outstde, outstdtau;
+	ofstream outstde, outstdmu, outstdtau,
+			 outstd_antie, outstd_antimu, outstd_antitau;
 
 	outstde.open("../dat_files/spectrum_DUNE_e.dat");
 	outstdmu.open("../dat_files/spectrum_DUNE_mu.dat");
 	outstdtau.open("../dat_files/spectrum_DUNE_tau.dat");
+
+	outstd_antie.open("../dat_files/spectrum_DUNE_antie.dat");
+	outstd_antimu.open("../dat_files/spectrum_DUNE_antimu.dat");
+	outstd_antitau.open("../dat_files/spectrum_DUNE_antitau.dat");
 	
 	double dm21 = 7.55e-5;
 	double dm31 = 2.50e-3;
@@ -41,10 +46,15 @@ int main(int argc, char * argv[])
 	glbSetOscillationParameters(true_values);
 	glbSetRates();
 
-	double energy, probmumu, probemu, probtaumu,
-                   probmue, probee, probtaue,
-                   probmutau, probetau, probtautau,
-                   fluxmu, fluxe, fluxtau;
+	double  probmumu, probemu, probtaumu,
+			probmue, probee, probtaue,
+			probmutau, probetau, probtautau,
+			prob_antimumu, prob_antiemu, prob_antitaumu,
+			prob_antimue, prob_antiee, prob_antitaue,
+			prob_antimutau, prob_antietau, prob_antitautau,
+
+			fluxmu, fluxe, fluxtau,
+			flux_antimu, flux_antie, flux_antitau, energy;
 
 	double emin= 0.25 ; //GeV
 	double emax=10 ; //GeV
@@ -76,10 +86,40 @@ int main(int argc, char * argv[])
         outstde<<energy<<"  "<<log10(probmue*fluxmu + probee*fluxe + probtaue*fluxtau)<<endl;
         outstdtau<<energy<<"  "<<log10(probmutau*fluxmu + probetau*fluxe + probtautau*fluxtau)<<endl;
 	}
+	//ANTI NEUTRINOS
+	for (energy=emin;energy<=emax;energy+=(emax-emin)/step)
+	{
+        flux_antie   = glbFlux(0,0,energy,L,1,-1)/4.10414e+12;
+        flux_antimu  = glbFlux(0,0,energy,L,2,-1)/4.10414e+12;
+        flux_antitau = glbFlux(0,0,energy,L,3,-1)/4.10414e+12;
+
+        //ELETRON
+        prob_antiee   = glbProfileProbability(0,1,1,-1,energy);
+        prob_antimue  = glbProfileProbability(0,2,1,-1,energy);
+        prob_antitaue = glbProfileProbability(0,3,1,-1,energy);
+
+        //MUON
+        prob_antiemu   = glbProfileProbability(0,1,2,-1,energy);
+        prob_antimumu  = glbProfileProbability(0,2,2,-1,energy);
+        prob_antitaumu = glbProfileProbability(0,3,2,-1,energy);
+
+        //TAU
+        prob_antietau    = glbProfileProbability(0,1,3,-1,energy);
+        prob_antimutau   = glbProfileProbability(0,2,3,-1,energy);
+        prob_antitautau  = glbProfileProbability(0,3,3,-1,energy);
+
+        outstd_antimu<<energy<<"  "<<log10(prob_antimumu*flux_antimu + prob_antiemu*flux_antie + prob_antitaumu*flux_antitau)<<endl;
+        outstd_antie<<energy<<"  "<<log10(prob_antimue*flux_antimu + prob_antiee*flux_antie + prob_antitaue*flux_antitau)<<endl;
+        outstd_antitau<<energy<<"  "<<log10(prob_antimutau*flux_antimu + prob_antietau*flux_antie + prob_antitautau*flux_antitau)<<endl;
+	}
 
 	outstde.close();
 	outstdmu.close();
     outstdtau.close();
+
+	outstd_antie.close();
+	outstd_antimu.close();
+    outstd_antitau.close();
 
 	glbFreeParams(true_values);
     
