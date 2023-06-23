@@ -51,7 +51,7 @@ void make_plot_flux_anti()
     //Plot usando MultiGraph
     auto *g = new TMultiGraph();
     
-    g->SetTitle("Fluxos Anti Neutrinos;Energy (GeV);Fluxo (NSU)");
+    g->SetTitle("Fluxos Anti Neutrinos;Energy (GeV);Fluxo (Log)");
     g->GetXaxis()->CenterTitle(true);
     g->GetYaxis()->CenterTitle(true);
 

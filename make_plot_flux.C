@@ -51,7 +51,7 @@ void make_plot_flux()
     //Plot usando MultiGraph
     auto *g = new TMultiGraph();
     
-    g->SetTitle("Fluxos;Energy (GeV);Fluxo (NSU)");
+    g->SetTitle("Fluxos dos Neutrinos;Energy (GeV);Fluxo (Log)");
     g->GetXaxis()->CenterTitle(true);
     g->GetYaxis()->CenterTitle(true);
 
