@@ -14,6 +14,7 @@ void make_plot_chi(){
     string dat_dir = "../dat_files/";
     auto c_chi = new TCanvas("c_chi", "CHI^2");
 
+    c_chi->SetLogx();
     auto *grchi = new TGraph2D((dat_dir+"chi2.dat").c_str());
     grchi->SetTitle("Grafico Chi^2;theta13(converter);deltacp; Chi^2");
     grchi->Draw("tri1");

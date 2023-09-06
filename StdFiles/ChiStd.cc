@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
             glbDefineParams(true_values, theta12, asin(sqrt(pow(10, x_theta13))), theta23, y_deltacp, dm21, dm31);
             chi = glbChiSys(true_values, -1, -1);
 
-            outstdchi << x_theta13 << "  " << y_deltacp << "  " << chi << endl;
+            outstdchi << pow(10, x_theta13) << "  " << y_deltacp << "  " << chi << endl;
         }
     }
 
