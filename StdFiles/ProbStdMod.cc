@@ -40,20 +40,21 @@ double sigma_E;
  ***************************************************************************/
 int my_set_oscillation_parameters(glb_params p, void *user_data)
 {
-  /* th12    = glbGetOscParams(p, GLB_THETA_12);
+  th12    = glbGetOscParams(p, GLB_THETA_12);
   th13    = glbGetOscParams(p, GLB_THETA_13);
   th23    = glbGetOscParams(p, GLB_THETA_23);
   deltacp = glbGetOscParams(p, GLB_DELTA_CP);
   sdm     = glbGetOscParams(p, GLB_DM_21) * 1.0e-18;   // Convert to GeV^2
   ldm     = glbGetOscParams(p, GLB_DM_31) * 1.0e-18;   // Convert to GeV^2
-  sigma_E = glbGetOscParams(p, GLB_SIGMA_E); */
+  sigma_E = glbGetOscParams(p, GLB_SIGMA_E);
 
 	th13 = asin(sqrt(0.02160));
   th12 = asin(sqrt(0.320));
 	th23 = asin(sqrt(0.547));
 	deltacp = -0.68 * M_PI;
-	sdm = 7.55e-5;
-	ldm = 2.50e-3;
+	sdm = 7.55e-5 *1.0e-18;
+	ldm = 2.50e-3 *1.0e-18;
+  sigma_E = glbGetOscParams(p, GLB_SIGMA_E);
   
   return 0;
 }
@@ -76,8 +77,8 @@ int my_get_oscillation_parameters(glb_params p, void *user_data)
   glbSetOscParams(p, th13, GLB_THETA_13);
   glbSetOscParams(p, th23, GLB_THETA_23);
   glbSetOscParams(p, deltacp, GLB_DELTA_CP);
-  glbSetOscParams(p, sdm, GLB_DM_21);
-  glbSetOscParams(p, ldm, GLB_DM_31);
+  glbSetOscParams(p, sdm*1.0e18, GLB_DM_21);
+  glbSetOscParams(p, ldm*1.0e18, GLB_DM_31);
   glbSetOscParams(p, sigma_E, GLB_SIGMA_E);
 
   return 0;
@@ -123,6 +124,7 @@ int my_probability_matrix(double P[3][3], int cp_sign, double E, int psteps,
                + 2.0*square(s13*c13) * ( D31*square(c12)*cos(2.0*Delta31)
                                        + D32*square(s12)*cos(2.0*Delta32) )
               + square(square(s13));
+  // P[0][0] = 1; // teste
 
   return 0;
 }
@@ -133,8 +135,8 @@ int my_probability_matrix(double P[3][3], int cp_sign, double E, int psteps,
  ***************************************************************************/
 
 int main(int argc, char *argv[])
-{ 
-  double thetheta13, x, y, res;
+{
+  //double thetheta13, x, y, res;
   
   /* Define standard oscillation parameters (cf. hep-ph/0405172v5) */
   double true_theta12 = asin(sqrt(0.3));
@@ -174,8 +176,8 @@ int main(int argc, char *argv[])
 
   glbDefineParams(true_values,true_theta12,true_theta13,true_theta23, true_deltacp,true_sdm,true_ldm);
 
-  /* glbSetOscParams(true_values,true_sigma_E, GLB_SIGMA_E);   // Non-standard parameter
-  glbSetDensityParams(true_values,1.0,GLB_ALL); */
+  glbSetOscParams(true_values,true_sigma_E, GLB_SIGMA_E);   // Non-standard parameter
+  glbSetDensityParams(true_values,1.0,GLB_ALL);
 
   glbDefineParams(test_values,true_theta12,true_theta13,true_theta23, true_deltacp,true_sdm,true_ldm);
                               
@@ -183,7 +185,7 @@ int main(int argc, char *argv[])
   glbSetDensityParams(test_values,1.0,GLB_ALL);
 
   /* The simulated data are computed */
-  //glbSetOscillationParameters(true_values);
+  glbSetOscillationParameters(true_values);
   glbSetOscillationParameters(test_values);
   glbSetRates();
 
@@ -192,11 +194,19 @@ int main(int argc, char *argv[])
   ofstream outstde_teste;
   outstde_teste.open((dat_dir+"probability_e_e_vac.dat").c_str());
 
+  printf("TH12: %f\n", th12);
+  printf("TH13: %f\n", th13);
+  printf("TH23: %f\n", th23);
+  printf("Dcp: %f\n", deltacp);
+  printf("sdm: %f\n", sdm);
+  printf("ldm: %f\n", ldm);
+  printf("sigma_E: %f\n", sigma_E);
+
   [[maybe_unused]] double L = 1300;// km
 
     for (energy=emin;energy<=emax;energy+=(emax-emin)/step)
 	  {
-        //glbSetOscillationParameters(test_values);
+        glbSetOscillationParameters(test_values);
         probe_vac = glbVacuumProbability(1,1,+1,energy,L);	//eletron para eletron
 
         outstde_teste <<energy<<"  "<< probe_vac<<endl;

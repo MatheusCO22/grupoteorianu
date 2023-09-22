@@ -54,25 +54,28 @@ void make_plot_flux()
     auto *g = new TMultiGraph();
     
     g->SetTitle("Fluxos dos Neutrinos;Energy (GeV);Fluxo (Log)");
-    g->GetXaxis()->CenterTitle(true);
-    g->GetYaxis()->CenterTitle(true);
-
-    g->GetXaxis()->SetTitleOffset(1.2);
-    g->GetYaxis()->SetTitleOffset(1.25);
-
+    
     g->GetXaxis()->SetLimits(0.225,12.25);
     g->GetXaxis()->SetRangeUser(0.25,10.25);
     g->GetYaxis()->SetRangeUser(-14.5,-10.05);
+    
+    g->GetXaxis()->CenterTitle(true);
+    g->GetXaxis()->SetTitleOffset(1.2);
+    
+    g->GetYaxis()->CenterTitle(true);
+    g->GetYaxis()->SetTitleOffset(1.25);
+
     
     g->Add(gre);
     g->Add(grmu);
     g->Add(grtau);
 
+    g->Draw("al");
+
     string emax = "Max Eletron: " + to_string(TMath::MaxElement(gre->GetN(),gre->GetY()));
     string mumax = "Max Muon: " + to_string(TMath::MaxElement(grmu->GetN(),grmu->GetY()));
     string taumax = "Max Tau: " + to_string(TMath::MaxElement(grtau->GetN(),grtau->GetY()));
 
-    g->Draw("al");
 
     legend->SetTextAlign(12);
     legend->AddEntry(grmu, "Muon", "l");
